@@ -87,6 +87,7 @@ class _HomeState extends State<Home> {
   String first = "SOL";
   String second = "SRM";
   Map data = {};
+  double input = 0;
 
   final _firsController = TextEditingController();
 
@@ -202,8 +203,17 @@ class _HomeState extends State<Home> {
                     color: Color.fromARGB(255, 21, 16, 22),
                     borderRadius: BorderRadius.circular(10)),
                 width: 150,
-                child: const TextField(
-                  controller: _fir,
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      if (value != "") {
+                        input = double.parse(value);
+                      } else {
+                        input = 0;
+                      }
+                      _firsController.text = "${input * data[first][second]}";
+                    });
+                  },
                   keyboardType: TextInputType.number,
                   style: TextStyle(color: Colors.white, fontSize: 22),
                   decoration: InputDecoration(
@@ -224,6 +234,7 @@ class _HomeState extends State<Home> {
                   setState(() {
                     data = data;
                   });
+                  _firsController.text = "${input * data[first][second]}";
                 },
                 isAnimation: true,
                 defaultValue: itemList[0],
@@ -241,17 +252,20 @@ class _HomeState extends State<Home> {
               ? Text("")
               : Text("1 $first = ${data[first]?["USD"]} USD",
                   style: TextStyle(color: Colors.red)),
-          Container(
-            margin: const EdgeInsets.all(20),
-            height: 50,
-            width: 60,
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 0, 0, 0),
-                borderRadius: BorderRadius.circular(30)),
-            child: Icon(
-              Icons.swap_vert,
-              size: 39,
-              color: Color.fromARGB(255, 207, 198, 198),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              height: 50,
+              width: 60,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Icon(
+                Icons.swap_vert,
+                size: 39,
+                color: Color.fromARGB(255, 207, 198, 198),
+              ),
             ),
           ),
           Row(
@@ -264,8 +278,9 @@ class _HomeState extends State<Home> {
                     color: Color.fromARGB(255, 21, 16, 22),
                     borderRadius: BorderRadius.circular(10)),
                 width: 150,
-                child: const TextField(
+                child: TextField(
                   keyboardType: TextInputType.number,
+                  controller: _firsController,
                   enabled: false,
                   style: TextStyle(color: Colors.white, fontSize: 22),
                   decoration: InputDecoration(
@@ -287,6 +302,7 @@ class _HomeState extends State<Home> {
                   setState(() {
                     data = data;
                   });
+                  _firsController.text = "${input * data[first][second]}";
                 },
                 defaultValue: itemList[3],
                 dropdownItemReverse: true,
