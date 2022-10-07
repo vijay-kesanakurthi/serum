@@ -268,10 +268,12 @@ class _HomeState extends State<Home> {
                       style: TextStyle(color: Colors.red)),
                 ),
           Container(margin: const EdgeInsets.all(20)),
-          Text(
-            "Rate ------ ${data[first][second]} $second per $first",
-            style: TextStyle(color: Colors.red),
-          ),
+          data[first] == null
+              ? Text("")
+              : Text(
+                  "Rate ------ ${data[first][second]} $second per $first",
+                  style: TextStyle(color: Colors.red),
+                ),
           Container(margin: const EdgeInsets.all(20)),
           TextButton(
               onPressed: () async {
