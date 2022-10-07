@@ -7,7 +7,7 @@ import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/coin_market.dart';
 import 'package:serumswap/phantom.dart';
-import 'package:serumswap/phantom_connect_button.dart';
+
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -76,11 +76,8 @@ class _HomeState extends State<Home> {
     }
   ];
   List itemList = [];
-  late StreamSubscription sub;
-  final Phantom phantom = Phantom();
   late Map<String, dynamic> price;
 
-  late PhantomConnect phantomConnect;
   final CoinMarket coinMarket = CoinMarket();
 
   //fetching coin data
@@ -96,8 +93,6 @@ class _HomeState extends State<Home> {
     super.initState();
 
     setState(() {
-      phantomConnect = phantom.phantomConnect();
-
       for (int i = 0; i < dropdownItemList.length; i++) {
         itemList.add({
           'label': dropdownItemList[i]['label'],
@@ -116,8 +111,6 @@ class _HomeState extends State<Home> {
         print(_firsController.text);
       },
     );
-
-    handleIncomingLinks(context);
   }
 
   @override
@@ -126,73 +119,20 @@ class _HomeState extends State<Home> {
     _firsController.dispose();
   }
 
-  void handleIncomingLinks(context) async {
-    sub = uriLinkStream.listen((Uri? link) async {
-      Map<String, String> params = link?.queryParameters ?? {};
-      if (params.containsKey("errorCode")) {
-        Alert(message: params["errorMessage"].toString());
-      } else {
-        switch (link?.path) {
-          case '/connect':
-            if (phantomConnect.createSession(params)) {
-              // connected = true;
-              setState(() {
-                phantom.setConnected(true);
-              });
-              print(phantom.connected);
-            } else {}
-            break;
-          case '/disconnect':
-            break;
-          case '/signAndSendTransaction':
-            var data = phantomConnect.decryptPayload(
-                data: params["data"]!, nonce: params["nonce"]!);
-            await launchUrl(
-              Uri.parse(
-                  "https://explorer.solana.com/tx/${data['signature']}?cluster=devnet"),
-              mode: LaunchMode.inAppWebView,
-            );
-        }
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(149, 10, 8, 8), actions: [
-        phantom.connected
-            ? Container(
-                padding: EdgeInsets.only(right: 20),
-                child: Center(
-                    child: Text(
-                        " ${phantomConnect.userPublicKey.replaceRange(10, phantomConnect.userPublicKey.length, "...")}")),
-              )
-            : TextButton(
-                onPressed: () {
-                  phantom.connect(phantomConnect);
-                },
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: Row(
-                    children: const [
-                      Text(
-                        "Connect Phantom",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      Icon(
-                        Icons.account_balance_wallet,
-                        size: 25,
-                      ),
-                    ],
-                  ),
-                ),
-              )
-      ]),
-      backgroundColor: Color.fromARGB(98, 0, 0, 0),
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Text(
+            "Swap",
+            style: TextStyle(color: Colors.white70, fontSize: 30),
+          ),
+          Container(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -250,8 +190,12 @@ class _HomeState extends State<Home> {
           ),
           data.isEmpty
               ? Text("")
-              : Text("1 $first = ${data[first]?["USD"]} USD",
-                  style: TextStyle(color: Colors.red)),
+              : Container(
+                  padding: EdgeInsets.only(right: 40, top: 10),
+                  alignment: Alignment.topRight,
+                  child: Text("1 $first = ${data[first]?["USD"]} USD",
+                      style: TextStyle(color: Colors.red)),
+                ),
           GestureDetector(
             onTap: () {},
             child: Container(
@@ -317,8 +261,17 @@ class _HomeState extends State<Home> {
           ),
           data.isEmpty
               ? Text("")
-              : Text("1 $second = ${data[second]?["USD"]} USD",
-                  style: TextStyle(color: Colors.red)),
+              : Container(
+                  padding: EdgeInsets.only(right: 30, top: 10),
+                  alignment: Alignment.topRight,
+                  child: Text("1 $second = ${data[second]?["USD"]} USD",
+                      style: TextStyle(color: Colors.red)),
+                ),
+          Container(margin: const EdgeInsets.all(20)),
+          Text(
+            "Rate ------ ${data[first][second]} $second per $first",
+            style: TextStyle(color: Colors.red),
+          ),
           Container(margin: const EdgeInsets.all(20)),
           TextButton(
               onPressed: () async {

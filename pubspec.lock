@@ -260,7 +260,7 @@ packages:
     source: sdk
     version: "0.0.99"
   solana:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: solana
       url: "https://pub.dartlang.org"
