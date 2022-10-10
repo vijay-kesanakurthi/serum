@@ -48,17 +48,19 @@ class _HomeState extends State<Home> {
               "https://raw.githubusercontent.com/trustwallet/assets/f3ffd0b9ae2165336279ce2f8db1981a55ce30f8/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"))
     },
     {
-      "label": "soLink",
-      "value": "soLINK",
-      "tokenSymbol": "soLINK",
-      "mintAddress": "CWE8jPTUYhdCTZYWPTe1o5DFqfdjzWKc9WKz6rSjQUdG",
-      "tokenName": "Wrapped Chainlink (Sollet)",
+      "label": "GDoge",
+      "value": "GDoge",
+      "address": "6SKogZxCWY9jKsKPMT3ChJUhQxAEeB6NjVidXQK6TEdW",
+      "symbol": "GDoge",
+      "tokenSymbol": "GDOGE",
+      "name": "Golden Doge Solana",
+      "decimals": 1,
       "icon": SizedBox(
         key: UniqueKey(),
         width: 20,
         height: 20,
         child: Image.network(
-            "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png"),
+            "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/6SKogZxCWY9jKsKPMT3ChJUhQxAEeB6NjVidXQK6TEdW/Logo.png"),
       )
     },
     {

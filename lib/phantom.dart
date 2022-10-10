@@ -65,10 +65,10 @@ class Phantom {
   }
 
   void Disconnect(PhantomConnect phantomConnect) async {
-    Uri Url = phantomConnect.generateDisconnectUri(redirect: '/disconnect');
+    Uri url = phantomConnect.generateDisconnectUri(redirect: '/disconnect');
     Future<void> launch() async {
-      if (!await launchUrl(Url, mode: LaunchMode.externalApplication)) {
-        throw 'Could not launch $Url';
+      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+        throw 'Could not launch $url';
       }
     }
 

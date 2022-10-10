@@ -1,3 +1,4 @@
+import 'package:alert/alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -21,6 +22,7 @@ class _AccountState extends State<Account> {
 
   final client = RpcClient("https://api.devnet.solana.com");
   double balance = 0;
+  double netwokFee = 0;
 
   void getBalance() {
     client
@@ -28,6 +30,16 @@ class _AccountState extends State<Account> {
         .then((value) => setState(() {
               balance = value / lamportsPerSol;
             }));
+  }
+
+  void airDrop() async {
+    try {
+      final y = await client.requestAirdrop(
+          widget.phantomConnect.userPublicKey, 1 * lamportsPerSol);
+      Alert(message: "1 SOL Airdroped");
+    } catch (E) {
+      Alert(message: E.toString());
+    }
   }
 
   @override
