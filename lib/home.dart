@@ -141,77 +141,220 @@ class _HomeState extends State<Home> {
             Container(
               height: 20,
             ),
-            Container(
-              height: 70.0,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 33, 36, 41),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                        // border: Border.all(width: 2),
+            Stack(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      height: 100.0,
+                      decoration: BoxDecoration(
                         color: Color.fromARGB(255, 33, 36, 41),
-                        borderRadius: BorderRadius.circular(10)),
-                    width: 150,
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          if (value != "") {
-                            input = double.parse(value);
-                          } else {
-                            input = 0;
-                          }
-                          _firsController.text =
-                              "${input * data[first][second]}";
-                        });
-                      },
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: "0.0",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 178, 185, 210),
-                              fontSize: 22),
-                          border: InputBorder.none,
-                          focusColor: Colors.white),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  // border: Border.all(width: 2),
+                                  color: Color.fromARGB(255, 33, 36, 41),
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: 150,
+                              child: TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (value != "") {
+                                      input = double.parse(value);
+                                    } else {
+                                      input = 0;
+                                    }
+                                    _firsController.text =
+                                        "${input * data[first][second]}";
+                                  });
+                                },
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 22),
+                                decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    hintText: "0.0",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 178, 185, 210),
+                                        fontSize: 22),
+                                    border: InputBorder.none,
+                                    focusColor: Colors.white),
+                              ),
+                            ),
+                            CoolDropdown(
+                              resultBD: BoxDecoration(
+                                  color: Color.fromARGB(255, 44, 47, 54),
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              resultTS: TextStyle(
+                                color: Colors.white,
+                              ),
+                              dropdownBD: BoxDecoration(
+                                color: Color.fromARGB(255, 25, 27, 31),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              selectedItemBD: BoxDecoration(
+                                color: Color.fromARGB(255, 44, 47, 54),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              selectedItemTS: TextStyle(
+                                color: Color.fromARGB(255, 228, 228, 228),
+                              ),
+                              unselectedItemTS: TextStyle(
+                                color: Color.fromARGB(255, 228, 228, 228),
+                              ),
+                              dropdownList: itemList,
+                              onChange: (selected) async {
+                                setState(() {
+                                  first = selected['tokenSymbol'];
+                                });
+                                data = await coinMarket.toUSDC(first, second);
+                                setState(() {
+                                  data = data;
+                                });
+                                _firsController.text =
+                                    "${input * data[first][second]}";
+                              },
+                              isAnimation: true,
+                              defaultValue: itemList[0],
+                              dropdownItemReverse: true,
+                              gap: 5,
+                              dropdownItemGap: 0,
+                              dropdownHeight: 220,
+                              dropdownItemMainAxis: MainAxisAlignment.start,
+                              resultMainAxis: MainAxisAlignment.start,
+                              resultWidth: 120,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 33, 36, 41),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 5),
+                              decoration: BoxDecoration(
+                                  // border: Border.all(width: 2),
+                                  color: Color.fromARGB(255, 33, 36, 41),
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: 150,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                controller: _firsController,
+                                enabled: false,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 22),
+                                decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    hintText: "0.0",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 178, 185, 210),
+                                        fontSize: 22),
+                                    border: InputBorder.none,
+                                    focusColor: Colors.white),
+                              ),
+                            ),
+                            CoolDropdown(
+                              dropdownList: itemList,
+                              resultBD: BoxDecoration(
+                                  color: Color.fromARGB(255, 44, 47, 54),
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              resultTS: TextStyle(
+                                color: Colors.white,
+                              ),
+                              dropdownBD: BoxDecoration(
+                                color: Color.fromARGB(255, 25, 27, 31),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              selectedItemBD: BoxDecoration(
+                                color: Color.fromARGB(255, 44, 47, 54),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              selectedItemTS: TextStyle(
+                                color: Color.fromARGB(255, 228, 228, 228),
+                              ),
+                              unselectedItemTS: TextStyle(
+                                color: Color.fromARGB(255, 228, 228, 228),
+                              ),
+                              onChange: (selected) async {
+                                setState(() {
+                                  second = selected['tokenSymbol'];
+                                });
+                                data = await coinMarket.toUSDC(first, second);
+                                setState(() {
+                                  data = data;
+                                });
+                                _firsController.text =
+                                    "${input * data[first][second]}";
+                              },
+                              defaultValue: itemList[3],
+                              dropdownItemReverse: true,
+                              gap: 5,
+                              dropdownItemGap: 0,
+                              dropdownHeight: 220,
+                              dropdownItemMainAxis: MainAxisAlignment.start,
+                              resultMainAxis: MainAxisAlignment.start,
+                              resultWidth: 120,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  bottom: 75,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        height: 35,
+                        width: 35,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 33, 36, 41),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 25, 27, 31),
+                                spreadRadius: 5,
+                              )
+                            ]),
+                        child: Icon(
+                          Icons.arrow_downward_sharp,
+                          size: 25,
+                          color: Color.fromARGB(255, 207, 198, 198),
+                        ),
+                      ),
                     ),
                   ),
-                  CoolDropdown(
-                    resultBD: BoxDecoration(
-                        color: Color.fromARGB(255, 44, 47, 54),
-                        borderRadius: BorderRadius.circular(10.0)),
-                    dropdownList: itemList,
-                    resultTS: TextStyle(
-                      color: Colors.white,
-                    ),
-                    onChange: (selected) async {
-                      setState(() {
-                        first = selected['tokenSymbol'];
-                      });
-                      data = await coinMarket.toUSDC(first, second);
-                      setState(() {
-                        data = data;
-                      });
-                      _firsController.text = "${input * data[first][second]}";
-                    },
-                    isAnimation: true,
-                    defaultValue: itemList[0],
-                    dropdownItemReverse: true,
-                    gap: 5,
-                    dropdownItemGap: 0,
-                    dropdownHeight: 220,
-                    dropdownItemMainAxis: MainAxisAlignment.start,
-                    resultMainAxis: MainAxisAlignment.start,
-                    resultWidth: 120,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+
             // data.isEmpty
             //     ? Text("")
             //     : Container(
@@ -220,83 +363,7 @@ class _HomeState extends State<Home> {
             //         child: Text("1 $first = ${data[first]?["USD"]} USD",
             //             style: TextStyle(color: Colors.red)),
             //       ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                height: 50,
-                width: 60,
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Icon(
-                  Icons.arrow_downward_outlined,
-                  size: 30,
-                  color: Color.fromARGB(255, 207, 198, 198),
-                ),
-              ),
-            ),
-            Container(
-              height: 70.0,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 33, 36, 41),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                        // border: Border.all(width: 2),
-                        color: Color.fromARGB(255, 33, 36, 41),
-                        borderRadius: BorderRadius.circular(10)),
-                    width: 150,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: _firsController,
-                      enabled: false,
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: "0.0",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 178, 185, 210),
-                              fontSize: 22),
-                          border: InputBorder.none,
-                          focusColor: Colors.white),
-                    ),
-                  ),
-                  CoolDropdown(
-                    dropdownList: itemList,
-                    resultBD: BoxDecoration(
-                        color: Color.fromARGB(255, 44, 47, 54),
-                        borderRadius: BorderRadius.circular(10.0)),
-                    resultTS: TextStyle(
-                      color: Colors.white,
-                    ),
-                    onChange: (selected) async {
-                      setState(() {
-                        second = selected['tokenSymbol'];
-                      });
-                      data = await coinMarket.toUSDC(first, second);
-                      setState(() {
-                        data = data;
-                      });
-                      _firsController.text = "${input * data[first][second]}";
-                    },
-                    defaultValue: itemList[3],
-                    dropdownItemReverse: true,
-                    gap: 5,
-                    dropdownItemGap: 0,
-                    dropdownHeight: 220,
-                    dropdownItemMainAxis: MainAxisAlignment.start,
-                    resultMainAxis: MainAxisAlignment.start,
-                    resultWidth: 120,
-                  ),
-                ],
-              ),
-            ),
+
             // data.isEmpty
             //     ? Text("")
             //     : Container(
@@ -306,29 +373,30 @@ class _HomeState extends State<Home> {
             //             style: TextStyle(color: Colors.red)),
             //       ),
             // Container(margin: const EdgeInsets.all(20)),
-            // data[first] == null
-            //     ? Text("")
-            //     : Text(
-            //         "Rate ------ ${data[first][second]} $second per $first",
-            //         style: TextStyle(color: Colors.red),
-            //       ),
-            Container(margin: const EdgeInsets.all(20)),
+            data[first] == null
+                ? Text("")
+                : Text(
+                    "1 $first = ${data[first][second]} $second",
+                    style: TextStyle(color: Colors.white),
+                  ),
+            Container(margin: const EdgeInsets.all(10)),
             TextButton(
                 onPressed: () async {
                   Alert(message: "Connect to phantom wallet").show();
                 },
                 child: Container(
-                    width: 100,
-                    padding: const EdgeInsets.all(10),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 34, 37, 42),
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.loop),
+                        // Icon(Icons.loop),
                         Text(
                           "Swap",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ],
                     )))
