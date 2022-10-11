@@ -273,13 +273,13 @@ class _HomeState extends State<Home> {
                             CoolDropdown(
                               dropdownList: itemList,
                               resultBD: BoxDecoration(
-                                  color: Color.fromARGB(255, 44, 47, 54),
+                                  color: Color.fromARGB(255, 64, 68, 79),
                                   borderRadius: BorderRadius.circular(20.0)),
                               resultTS: TextStyle(
                                 color: Colors.white,
                               ),
                               dropdownBD: BoxDecoration(
-                                color: Color.fromARGB(255, 25, 27, 31),
+                                color: Color.fromARGB(255, 64, 68, 79),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                               selectedItemBD: BoxDecoration(
