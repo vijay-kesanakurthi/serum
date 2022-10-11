@@ -2,10 +2,12 @@ import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cool_dropdown/cool_dropdown.dart';
+import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/coin_market.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final PhantomConnect phantomConnect;
+  const Home({super.key, required this.phantomConnect});
 
   @override
   State<Home> createState() => _HomeState();
