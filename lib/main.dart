@@ -27,8 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  dynamic screens = [Home(), Orderbook(), Home(), Orderbook()];
-
   late StreamSubscription sub;
 
   final Phantom phantom = Phantom();
@@ -36,6 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   int selected = 0;
 
+  dynamic screens = [Home(), Orderbook()];
   @override
   void initState() {
     super.initState();
@@ -122,7 +121,9 @@ class _MyAppState extends State<MyApp> {
               )
       ]),
       backgroundColor: Color.fromARGB(255, 42, 35, 44),
-      body: screens[selected],
+      body: selected == 2
+          ? Account(phantomConnect: phantomConnect, phantom: phantom)
+          : screens[selected],
       bottomNavigationBar: nav(),
     );
   }
@@ -142,10 +143,10 @@ class _MyAppState extends State<MyApp> {
           icon: Icon(Icons.book_rounded),
           label: 'Business',
         ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.account_circle),
-        //   label: 'Profile',
-        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          label: 'Account',
+        ),
         // BottomNavigationBarItem(
         //   icon: Icon(Icons.settings),
         //   label: 'Settings',
