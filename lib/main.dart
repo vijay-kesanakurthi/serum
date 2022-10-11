@@ -30,15 +30,22 @@ class _MyAppState extends State<MyApp> {
   late StreamSubscription sub;
 
   final Phantom phantom = Phantom();
-  late PhantomConnect phantomConnect;
+  late PhantomConnect phantomConnect = phantom.phantomConnect();
 
   int selected = 0;
 
-  dynamic screens = [Home(), Orderbook()];
+  dynamic screens;
   @override
   void initState() {
-    super.initState();
     phantomConnect = phantom.phantomConnect();
+
+    screens = [
+      Home(
+        phantomConnect: phantomConnect,
+      ),
+      Orderbook()
+    ];
+    super.initState();
     handleIncomingLinks(context);
   }
 
