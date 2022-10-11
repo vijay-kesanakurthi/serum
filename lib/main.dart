@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
     screens = [
       Home(
         phantomConnect: phantomConnect,
+        phantom: phantom,
       ),
       Orderbook()
     ];
