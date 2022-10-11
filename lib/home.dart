@@ -395,16 +395,24 @@ class _HomeState extends State<Home> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 37, 42),
+                        color: Color.fromARGB(255, 23, 42, 66),
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         // Icon(Icons.loop),
-                        Text(
-                          "Swap",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
+                        widget.phantom.connected
+                            ? Text(
+                                "Swap",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              )
+                            : Text(
+                                "Connect Wallet",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 76, 137, 224),
+                                    fontSize: 20),
+                              )
                       ],
                     )))
           ],
