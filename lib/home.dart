@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/coin_market.dart';
+import 'package:serumswap/phantom.dart';
 
 class Home extends StatefulWidget {
   final PhantomConnect phantomConnect;
-  const Home({super.key, required this.phantomConnect});
+  final Phantom phantom;
+  const Home({super.key, required this.phantomConnect, required this.phantom});
 
   @override
   State<Home> createState() => _HomeState();
