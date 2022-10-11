@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
       )
     },
     {
-      "label": "Serum",
+      "label": "SRM",
       "value": "Serum",
       "mintAddress": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
       "tokenName": "Serum",
@@ -373,11 +373,21 @@ class _HomeState extends State<Home> {
             //             style: TextStyle(color: Colors.red)),
             //       ),
             // Container(margin: const EdgeInsets.all(20)),
+            SizedBox(
+              height: 30,
+            ),
             data[first] == null
                 ? Text("")
-                : Text(
-                    "1 $first = ${data[first][second]} $second",
-                    style: TextStyle(color: Colors.white),
+                : Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "1 $first = ${data[first][second]} $second",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
             Container(margin: const EdgeInsets.all(10)),
             TextButton(
