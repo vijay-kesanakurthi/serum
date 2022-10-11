@@ -15,6 +15,7 @@ void main() {
     title: 'Flutter Demo',
     theme: ThemeData(),
     home: const MyApp(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
@@ -26,7 +27,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  dynamic screens = [Home(), Orderbook()];
+  dynamic screens = [Home(), Orderbook(), Home(), Orderbook()];
 
   late StreamSubscription sub;
 
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               )
       ]),
-      backgroundColor: Color.fromARGB(98, 0, 0, 0),
+      backgroundColor: Color.fromARGB(255, 42, 35, 44),
       body: screens[selected],
       bottomNavigationBar: nav(),
     );
@@ -141,6 +142,14 @@ class _MyAppState extends State<MyApp> {
           icon: Icon(Icons.book_rounded),
           label: 'Business',
         ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.account_circle),
+        //   label: 'Profile',
+        // ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.settings),
+        //   label: 'Settings',
+        // ),
       ],
       currentIndex: selected,
       selectedItemColor: Color.fromARGB(255, 255, 255, 255),

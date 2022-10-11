@@ -57,9 +57,9 @@ class _OrderbookState extends State<Orderbook> {
   void initState() {
     super.initState();
     fetch();
-    // Timer mytimer = Timer.periodic(Duration(seconds: 5), (timer) {
-    //   fetch();
-    // });
+    Timer mytimer = Timer.periodic(Duration(seconds: 50), (timer) {
+      fetch();
+    });
   }
 
   @override
@@ -132,7 +132,7 @@ class _OrderbookState extends State<Orderbook> {
               ],
             ),
           ),
-          _createDataTable(dropdownvalue)
+          Center(child: _createDataTable(dropdownvalue))
         ],
       ),
     );
