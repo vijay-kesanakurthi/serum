@@ -1,15 +1,8 @@
-import 'dart:async';
-
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cool_dropdown/cool_dropdown.dart';
-import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/coin_market.dart';
-import 'package:serumswap/phantom.dart';
-
-import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
