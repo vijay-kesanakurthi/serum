@@ -389,7 +389,9 @@ class _HomeState extends State<Home> {
             Container(margin: const EdgeInsets.all(10)),
             TextButton(
                 onPressed: () async {
-                  Alert(message: "Connect to phantom wallet").show();
+                  if (!widget.phantom.connected) {
+                    widget.phantom.connect(widget.phantomConnect);
+                  }
                 },
                 child: Container(
                     width: double.infinity,

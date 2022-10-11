@@ -86,48 +86,48 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(149, 10, 8, 8), actions: [
-        phantom.connected
-            ? TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Account(
-                                phantomConnect: phantomConnect,
-                                phantom: phantom,
-                              )));
-                },
-                child: Container(
-                  padding: EdgeInsets.only(right: 20),
-                  child: Column(
-                    children: [
-                      Icon(Icons.account_circle_outlined, size: 30),
-                    ],
-                  ),
-                ),
-              )
-            : TextButton(
-                onPressed: () {
-                  phantom.connect(phantomConnect);
-                },
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: Row(
-                    children: const [
-                      Text(
-                        "Connect Phantom",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      Icon(
-                        Icons.account_balance_wallet,
-                        size: 25,
-                      ),
-                    ],
-                  ),
-                ),
-              )
-      ]),
+      // appBar: AppBar(backgroundColor: Color.fromARGB(149, 10, 8, 8), actions: [
+      //   phantom.connected
+      //       ? TextButton(
+      //           onPressed: () {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) => Account(
+      //                           phantomConnect: phantomConnect,
+      //                           phantom: phantom,
+      //                         )));
+      //           },
+      //           child: Container(
+      //             padding: EdgeInsets.only(right: 20),
+      //             child: Column(
+      //               children: [
+      //                 Icon(Icons.account_circle_outlined, size: 30),
+      //               ],
+      //             ),
+      //           ),
+      //         )
+      //       : TextButton(
+      //           onPressed: () {
+      //             phantom.connect(phantomConnect);
+      //           },
+      //           child: Container(
+      //             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+      //             child: Row(
+      //               children: const [
+      //                 Text(
+      //                   "Connect Phantom",
+      //                   style: TextStyle(color: Colors.white, fontSize: 20),
+      //                 ),
+      //                 Icon(
+      //                   Icons.account_balance_wallet,
+      //                   size: 25,
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         )
+      // ]),
       backgroundColor: Color.fromARGB(255, 42, 35, 44),
       body: selected == 2
           ? Account(phantomConnect: phantomConnect, phantom: phantom)
