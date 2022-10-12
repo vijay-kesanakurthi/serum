@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 Future fetchData(String typ, String address) async {
   try {
@@ -157,15 +158,25 @@ class _OrderbookState extends State<Orderbook> {
             const SizedBox(
               height: 10.0,
             ),
-            dropdownvalue == "ALL"
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _createDataTable("ASKS", "Small"),
-                      _createDataTable("BIDS", "Small"),
-                    ],
+            asks.length == 0 || bids.length == 0
+                ? Container(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: Center(
+                      child: LoadingAnimationWidget.discreteCircle(
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
                   )
-                : Center(child: _createDataTable(dropdownvalue, "Large"))
+                : dropdownvalue == "ALL"
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _createDataTable("ASKS", "Small"),
+                          _createDataTable("BIDS", "Small"),
+                        ],
+                      )
+                    : Center(child: _createDataTable(dropdownvalue, "Large"))
           ],
         ),
       ),
