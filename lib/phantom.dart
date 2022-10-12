@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alert/alert.dart';
 import 'package:phantom_connect/phantom_connect.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:solana/encoder.dart';
@@ -7,9 +8,12 @@ import 'package:solana/solana.dart';
 
 class Phantom {
   bool connected = false;
+  late double balance;
+  late PhantomConnect phantomConnect;
+  RpcClient client = RpcClient("https://api.devnet.solana.com");
 
-  PhantomConnect phantomConnect() {
-    return PhantomConnect(
+  Phantom() {
+    phantomConnect = PhantomConnect(
       appUrl: "https://solana.com",
       deepLink: "dapp://flutterbooksample.com",
     );
@@ -19,21 +23,20 @@ class Phantom {
     connected = connect;
   }
 
-  void connect(phantomConnect) async {
-    Uri connectUrl = phantomConnect.generateConnectUri(
-        cluster: 'devnet', redirect: '/connect');
+  void connect() async {
     try {
+      Uri connectUrl = phantomConnect.generateConnectUri(
+          cluster: 'devnet', redirect: '/connect');
+
       await launchUrl(connectUrl, mode: LaunchMode.externalApplication);
+      print("tho[");
     } catch (e) {
-      // ignore: avoid_print
+      Alert(message: e.toString());
       print(e);
     }
-
-    // Open the url using (url_launcher)[https://pub.dev/packages/url_launcher]]
   }
 
-  void send(
-      PhantomConnect phantomConnect, String address, double amount) async {
+  void send(String address, double amount) async {
     final transferIx = SystemInstruction.transfer(
       fundingAccount:
           Ed25519HDPublicKey.fromBase58(phantomConnect.userPublicKey),
@@ -65,8 +68,7 @@ class Phantom {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  void Disconnect(PhantomConnect phantomConnect) async {
+  void disconnect() {
     Uri url = phantomConnect.generateDisconnectUri(redirect: '/disconnect');
     Future<void> launch() async {
       if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
@@ -75,5 +77,21 @@ class Phantom {
     }
 
     launch();
+  }
+
+  getBalance() async {
+    final value = await client.getBalance(phantomConnect.userPublicKey);
+
+    return value / lamportsPerSol;
+  }
+
+  void airDrop() async {
+    try {
+      await client.requestAirdrop(
+          phantomConnect.userPublicKey, 1 * lamportsPerSol);
+      Alert(message: "1 SOL Airdroped");
+    } catch (E) {
+      Alert(message: E.toString());
+    }
   }
 }

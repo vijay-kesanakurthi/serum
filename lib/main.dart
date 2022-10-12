@@ -1,22 +1,26 @@
 import 'dart:async';
-
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
-import 'package:phantom_connect/phantom_connect.dart';
+import 'package:provider/provider.dart';
 import 'package:serumswap/acount.dart';
 import 'package:serumswap/home.dart';
 import 'package:serumswap/orderbook.dart';
 import 'package:serumswap/phantom.dart';
+import 'package:serumswap/providers/wallet_state_provider.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Flutter Demo',
-    theme: ThemeData(),
-    home: const MyApp(),
-    debugShowCheckedModeBanner: false,
-  ));
+      title: 'Flutter Demo',
+      theme: ThemeData(),
+      debugShowCheckedModeBanner: false,
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => WalletStateProvider()),
+        ],
+        child: const MyApp(),
+      )));
 }
 
 class MyApp extends StatefulWidget {
@@ -29,50 +33,55 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late StreamSubscription sub;
 
-  final Phantom phantom = Phantom();
-  late PhantomConnect phantomConnect = phantom.phantomConnect();
+  late Phantom phantom;
 
   int selected = 0;
 
   dynamic screens;
   @override
   void initState() {
-    phantomConnect = phantom.phantomConnect();
+    setState(() {
+      phantom = Phantom();
+      screens = [
+        Home(
+          phantom: phantom,
+        ),
+        Orderbook(),
+        Account(
+          phantom: phantom,
+        )
+      ];
+    });
 
-    screens = [
-      Home(
-        phantomConnect: phantomConnect,
-        phantom: phantom,
-      ),
-      const Orderbook()
-    ];
     super.initState();
     handleIncomingLinks(context);
   }
 
   void handleIncomingLinks(context) async {
+    final provider = Provider.of<WalletStateProvider>(context, listen: false);
     sub = uriLinkStream.listen((Uri? link) async {
       Map<String, String> params = link?.queryParameters ?? {};
+
       if (params.containsKey("errorCode")) {
         Alert(message: params["errorMessage"].toString());
       } else {
         switch (link?.path) {
           case '/connect':
-            if (phantomConnect.createSession(params)) {
+            if (phantom.phantomConnect.createSession(params)) {
               // connected = true;
               setState(() {
-                phantom.setConnected(true);
+                provider.updateConnection(true);
               });
             } else {}
             break;
           case '/disconnect':
             setState(() {
-              phantom.setConnected(false);
+              provider.updateConnection(false);
             });
             break;
           case '/signAndSendTransaction':
-            var data = phantomConnect.decryptPayload(
-                data: params["data"]!, nonce: params["nonce"]!);
+            var data = phantom.phantomConnect
+                .decryptPayload(data: params["data"]!, nonce: params["nonce"]!);
             await launchUrl(
               Uri.parse(
                   "https://explorer.solana.com/tx/${data['signature']}?cluster=devnet"),
@@ -128,10 +137,8 @@ class _MyAppState extends State<MyApp> {
       //           ),
       //         )
       // ]),
-      backgroundColor: const Color.fromARGB(255, 42, 35, 44),
-      body: selected == 2
-          ? Account(phantomConnect: phantomConnect, phantom: phantom)
-          : screens[selected],
+      backgroundColor: Color.fromARGB(255, 42, 35, 44),
+      body: screens[selected],
       bottomNavigationBar: nav(),
     );
   }
@@ -144,7 +151,7 @@ class _MyAppState extends State<MyApp> {
       iconSize: 28,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.swap_horiz, size: 32),
           label: 'Home',
         ),
         BottomNavigationBarItem(
