@@ -29,23 +29,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late StreamSubscription sub;
 
-  final Phantom phantom = Phantom();
-  late PhantomConnect phantomConnect = phantom.phantomConnect();
+  late Phantom phantom = Phantom();
 
   int selected = 0;
 
   dynamic screens;
   @override
   void initState() {
-    phantomConnect = phantom.phantomConnect();
+    setState(() {
+      phantom = Phantom();
+      screens = [
+        Home(
+          phantom: phantom,
+        ),
+        Orderbook(),
+        Account(
+          phantom: phantom,
+        )
+      ];
+    });
 
-    screens = [
-      Home(
-        phantomConnect: phantomConnect,
-        phantom: phantom,
-      ),
-      Orderbook()
-    ];
     super.initState();
     handleIncomingLinks(context);
   }
@@ -58,8 +61,9 @@ class _MyAppState extends State<MyApp> {
       } else {
         switch (link?.path) {
           case '/connect':
-            if (phantomConnect.createSession(params)) {
+            if (phantom.phantomConnect.createSession(params)) {
               // connected = true;
+
               setState(() {
                 phantom.setConnected(true);
               });
@@ -71,8 +75,8 @@ class _MyAppState extends State<MyApp> {
             });
             break;
           case '/signAndSendTransaction':
-            var data = phantomConnect.decryptPayload(
-                data: params["data"]!, nonce: params["nonce"]!);
+            var data = phantom.phantomConnect
+                .decryptPayload(data: params["data"]!, nonce: params["nonce"]!);
             await launchUrl(
               Uri.parse(
                   "https://explorer.solana.com/tx/${data['signature']}?cluster=devnet"),
@@ -129,9 +133,7 @@ class _MyAppState extends State<MyApp> {
       //         )
       // ]),
       backgroundColor: Color.fromARGB(255, 42, 35, 44),
-      body: selected == 2
-          ? Account(phantomConnect: phantomConnect, phantom: phantom)
-          : screens[selected],
+      body: screens[selected],
       bottomNavigationBar: nav(),
     );
   }

@@ -7,9 +7,8 @@ import 'package:serumswap/coin_market.dart';
 import 'package:serumswap/phantom.dart';
 
 class Home extends StatefulWidget {
-  final PhantomConnect phantomConnect;
   final Phantom phantom;
-  const Home({super.key, required this.phantomConnect, required this.phantom});
+  const Home({super.key, required this.phantom});
 
   @override
   State<Home> createState() => _HomeState();
@@ -389,10 +388,8 @@ class _HomeState extends State<Home> {
             Container(margin: const EdgeInsets.all(10)),
             widget.phantom.connected
                 ? TextButton(
-                    onPressed: () async {
-                      if (!widget.phantom.connected) {
-                        widget.phantom.connect(widget.phantomConnect);
-                      }
+                    onPressed: () {
+                      print(widget.phantom.connected);
                     },
                     child: Container(
                       width: double.infinity,
@@ -414,21 +411,25 @@ class _HomeState extends State<Home> {
                 : TextButton(
                     onPressed: () async {
                       if (!widget.phantom.connected) {
-                        widget.phantom.connect(widget.phantomConnect);
+                        print(widget.phantom.connected);
+                        setState(() {
+                          widget.phantom.connect();
+                          print("Done");
+                        });
                       }
                     },
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 23, 42, 66),
+                          color: const Color.fromARGB(255, 23, 42, 66),
                           borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Connect Wallet",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color.fromARGB(255, 76, 137, 224),
                                 fontSize: 20),
                           )

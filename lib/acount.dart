@@ -8,9 +8,8 @@ import 'package:serumswap/phantom.dart';
 import 'package:solana/solana.dart';
 
 class Account extends StatefulWidget {
-  PhantomConnect phantomConnect;
   Phantom phantom;
-  Account({super.key, required this.phantomConnect, required this.phantom});
+  Account({super.key, required this.phantom});
 
   @override
   State<Account> createState() => _AccountState();
@@ -20,33 +19,13 @@ class _AccountState extends State<Account> {
   TextEditingController addressController = TextEditingController();
   TextEditingController amountController = TextEditingController();
 
-  final client = RpcClient("https://api.devnet.solana.com");
   double balance = 0;
   double netwokFee = 0;
-
-  void getBalance() {
-    client
-        .getBalance(widget.phantomConnect.userPublicKey)
-        .then((value) => setState(() {
-              balance = value / lamportsPerSol;
-            }));
-  }
-
-  void airDrop() async {
-    try {
-      final y = await client.requestAirdrop(
-          widget.phantomConnect.userPublicKey, 1 * lamportsPerSol);
-      Alert(message: "1 SOL Airdroped");
-    } catch (E) {
-      Alert(message: E.toString());
-    }
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getBalance();
   }
 
   @override
@@ -77,7 +56,7 @@ class _AccountState extends State<Account> {
                         SizedBox(
                           width: 400,
                           child: Text(
-                            "PublicKey:  ${widget.phantomConnect.userPublicKey}",
+                            "PublicKey:  ${widget.phantom.phantomConnect.userPublicKey}",
                             style: const TextStyle(
                                 color: Colors.white70,
                                 fontSize: 22,
@@ -89,7 +68,7 @@ class _AccountState extends State<Account> {
                           height: 50,
                         ),
                         Container(
-                          child: Text("Balance: $balance SOL",
+                          child: Text("Balance: ${balance} SOL",
                               style: const TextStyle(
                                   color: Colors.white70,
                                   fontSize: 22,
@@ -162,13 +141,8 @@ class _AccountState extends State<Account> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                  widget.phantom.send(
-                                      widget.phantomConnect,
-                                      addressController.text,
+                                  widget.phantom.send(addressController.text,
                                       double.parse(amountController.text));
-                                  setState(() {
-                                    getBalance();
-                                  });
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -187,8 +161,7 @@ class _AccountState extends State<Account> {
                         ),
                         TextButton(
                             onPressed: () {
-                              widget.phantom.Disconnect(widget.phantomConnect);
-                              Navigator.pop(context);
+                              widget.phantom.disconnect();
                             },
                             child: Container(
                               padding: const EdgeInsets.all(20),
