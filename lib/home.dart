@@ -404,12 +404,12 @@ class _HomeState extends State<Home> {
                       children: [
                         // Icon(Icons.loop),
                         widget.phantom.connected
-                            ? Text(
+                            ? const Text(
                                 "Swap",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               )
-                            : Text(
+                            : const Text(
                                 "Connect Wallet",
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 76, 137, 224),
