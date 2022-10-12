@@ -1,11 +1,5 @@
-import 'package:alert/alert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/phantom.dart';
-import 'package:solana/solana.dart';
 
 class Account extends StatefulWidget {
   Phantom phantom;
@@ -24,7 +18,6 @@ class _AccountState extends State<Account> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -32,7 +25,11 @@ class _AccountState extends State<Account> {
   Widget build(BuildContext context) {
     return widget.phantom.connected
         ? Logged(context)
-        : Text("Connect Phantom Wallet");
+        : SafeArea(
+            child: Text(
+            "Connect Phantom Wallet",
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ));
   }
 
   SafeArea Logged(BuildContext context) {

@@ -29,7 +29,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late StreamSubscription sub;
 
-  late Phantom phantom = Phantom();
+  late Phantom phantom;
 
   int selected = 0;
 
@@ -63,7 +63,6 @@ class _MyAppState extends State<MyApp> {
           case '/connect':
             if (phantom.phantomConnect.createSession(params)) {
               // connected = true;
-
               setState(() {
                 phantom.setConnected(true);
               });
