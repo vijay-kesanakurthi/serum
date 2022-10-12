@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:serumswap/coin_market.dart';
 import 'package:serumswap/phantom.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Home extends StatefulWidget {
   final Phantom phantom;
@@ -408,8 +409,9 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 30,
                 ),
-                data[first] == null
-                    ? const Text("")
+                data[first]?[second] == null
+                    ? LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white, size: 20)
                     : Row(
                         children: [
                           Padding(
