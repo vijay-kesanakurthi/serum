@@ -145,7 +145,7 @@ class _MyAppState extends State<MyApp> {
 
   BottomNavigationBar nav() {
     return BottomNavigationBar(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 8, 6, 6),
       showSelectedLabels: false,
       showUnselectedLabels: false,
       iconSize: 28,
