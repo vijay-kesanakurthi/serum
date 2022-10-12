@@ -397,15 +397,11 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                           color: Color.fromARGB(255, 23, 42, 66),
                           borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Swap",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
-                        ],
-                      ),
+                      child: const Center(
+                          child: Text(
+                        "Swap",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      )),
                     ),
                   )
                 : TextButton(
@@ -424,16 +420,13 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 23, 42, 66),
                           borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Connect Wallet",
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 76, 137, 224),
-                                fontSize: 20),
-                          )
-                        ],
+                      child: const Center(
+                        child: Text(
+                          "Connect Wallet",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 76, 137, 224),
+                              fontSize: 20),
+                        ),
                       ),
                     ),
                   )
