@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:cool_dropdown/cool_dropdown.dart';
+import 'package:provider/provider.dart';
 
 import 'package:serumswap/coin_market.dart';
 import 'package:serumswap/phantom.dart';
+import 'package:serumswap/providers/wallet_state_provider.dart';
 
 class Home extends StatefulWidget {
   final Phantom phantom;
@@ -118,6 +120,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<WalletStateProvider>(context, listen: true);
+
     return Center(
       child: SingleChildScrollView(
         child: Container(
@@ -386,7 +390,8 @@ class _HomeState extends State<Home> {
                       ],
                     ),
               Container(margin: const EdgeInsets.all(10)),
-              widget.phantom.connected
+              Text("${widget.phantom.connected}"),
+              provider.isConnected
                   ? TextButton(
                       onPressed: () {
                         print(widget.phantom.connected);
@@ -409,7 +414,6 @@ class _HomeState extends State<Home> {
                         setState(() {
                           widget.phantom.connect();
                           print("Progress:  $widget.phantom.connected");
-                          widget.phantom.connected = widget.phantom.connected;
                         });
                       },
                       child: Container(

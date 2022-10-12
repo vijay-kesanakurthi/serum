@@ -1,22 +1,26 @@
 import 'dart:async';
-
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
-import 'package:phantom_connect/phantom_connect.dart';
+import 'package:provider/provider.dart';
 import 'package:serumswap/acount.dart';
 import 'package:serumswap/home.dart';
 import 'package:serumswap/orderbook.dart';
 import 'package:serumswap/phantom.dart';
+import 'package:serumswap/providers/wallet_state_provider.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Flutter Demo',
-    theme: ThemeData(),
-    home: const MyApp(),
-    debugShowCheckedModeBanner: false,
-  ));
+      title: 'Flutter Demo',
+      theme: ThemeData(),
+      debugShowCheckedModeBanner: false,
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => WalletStateProvider()),
+        ],
+        child: const MyApp(),
+      )));
 }
 
 class MyApp extends StatefulWidget {
@@ -54,8 +58,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void handleIncomingLinks(context) async {
+    final provider = Provider.of<WalletStateProvider>(context, listen: false);
     sub = uriLinkStream.listen((Uri? link) async {
       Map<String, String> params = link?.queryParameters ?? {};
+
       if (params.containsKey("errorCode")) {
         Alert(message: params["errorMessage"].toString());
       } else {
@@ -64,13 +70,13 @@ class _MyAppState extends State<MyApp> {
             if (phantom.phantomConnect.createSession(params)) {
               // connected = true;
               setState(() {
-                phantom.setConnected(true);
+                provider.updateConnection(true);
               });
             } else {}
             break;
           case '/disconnect':
             setState(() {
-              phantom.setConnected(false);
+              provider.updateConnection(false);
             });
             break;
           case '/signAndSendTransaction':
@@ -145,7 +151,7 @@ class _MyAppState extends State<MyApp> {
       iconSize: 28,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.swap_horiz, size: 32),
           label: 'Home',
         ),
         BottomNavigationBarItem(

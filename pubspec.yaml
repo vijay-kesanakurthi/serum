@@ -43,6 +43,7 @@ dependencies:
   uni_links: ^0.5.1
   http: ^0.13.5
   solana: ^0.26.0
+  provider: ^6.0.4
 
 dev_dependencies:
   flutter_test:

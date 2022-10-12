@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:serumswap/phantom.dart';
+import 'package:serumswap/providers/wallet_state_provider.dart';
 
 class Account extends StatefulWidget {
   Phantom phantom;
@@ -23,7 +25,8 @@ class _AccountState extends State<Account> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.phantom.connected
+    final provider = Provider.of<WalletStateProvider>(context, listen: true);
+    return provider.isConnected
         ? Logged(context)
         : SafeArea(
             child: Text(
@@ -153,6 +156,18 @@ class _AccountState extends State<Account> {
                                 ))
                           ],
                         ),
+                        TextButton(
+                            onPressed: () {
+                              widget.phantom.airDrop();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 54, 52, 52),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Text("AirDrop",
+                                  style: TextStyle(color: Colors.white)),
+                            )),
                         Container(
                           height: 50,
                         ),
