@@ -122,8 +122,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: 500,
-        alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 25, 27, 31),
             borderRadius: BorderRadius.circular(15.0)),
