@@ -67,9 +67,9 @@ class _OrderbookState extends State<Orderbook> {
   void initState() {
     super.initState();
     fetch();
-    Timer.periodic(const Duration(seconds: 20), (timer) {
-      fetch();
-    });
+    // Timer.periodic(const Duration(seconds: 20), (timer) {
+    //   fetch();
+    // });
   }
 
   @override
@@ -145,6 +145,7 @@ class _OrderbookState extends State<Orderbook> {
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
+                            fetch();
                           });
                         },
                       ),
