@@ -1,12 +1,13 @@
 import 'package:alert/alert.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/container.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:phantom_connect/phantom_connect.dart';
 import 'package:serumswap/phantom.dart';
 import 'package:solana/solana.dart';
 
+// ignore: must_be_immutable
 class Account extends StatefulWidget {
   PhantomConnect phantomConnect;
   Phantom phantom;
@@ -34,7 +35,7 @@ class _AccountState extends State<Account> {
 
   void airDrop() async {
     try {
-      final y = await client.requestAirdrop(
+      await client.requestAirdrop(
           widget.phantomConnect.userPublicKey, 1 * lamportsPerSol);
       Alert(message: "1 SOL Airdroped");
     } catch (E) {
@@ -44,6 +45,7 @@ class _AccountState extends State<Account> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     getBalance();
@@ -55,7 +57,7 @@ class _AccountState extends State<Account> {
         child: Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,20 +84,18 @@ class _AccountState extends State<Account> {
                 Container(
                   height: 50,
                 ),
-                Container(
-                  child: Text("Balance: $balance SOL",
-                      style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 22,
-                          wordSpacing: 10,
-                          fontWeight: FontWeight.w500)),
-                ),
+                Text("Balance: $balance SOL",
+                    style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 22,
+                        wordSpacing: 10,
+                        fontWeight: FontWeight.w500)),
                 Container(
                   height: 50,
                 ),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "Send SOL",
                       style: TextStyle(
                         color: Colors.white70,
@@ -106,13 +106,14 @@ class _AccountState extends State<Account> {
                     ),
                     Container(
                       width: 300,
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 54, 52, 52),
+                          color: const Color.fromARGB(255, 54, 52, 52),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextField(
                         controller: addressController,
-                        style: TextStyle(color: Colors.white60, fontSize: 20),
+                        style: const TextStyle(
+                            color: Colors.white60, fontSize: 20),
                         decoration: const InputDecoration(
                             fillColor: Color.fromARGB(255, 227, 225, 225),
                             hintText: "Reciever PublicAdress",
@@ -163,7 +164,7 @@ class _AccountState extends State<Account> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 54, 52, 52),
+                              color: const Color.fromARGB(255, 54, 52, 52),
                               borderRadius: BorderRadius.circular(20)),
                           child: const Text("Send",
                               style:

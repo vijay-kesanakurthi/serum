@@ -25,6 +25,7 @@ class Phantom {
     try {
       await launchUrl(connectUrl, mode: LaunchMode.externalApplication);
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
 
@@ -64,6 +65,7 @@ class Phantom {
     );
   }
 
+  // ignore: non_constant_identifier_names
   void Disconnect(PhantomConnect phantomConnect) async {
     Uri url = phantomConnect.generateDisconnectUri(redirect: '/disconnect');
     Future<void> launch() async {

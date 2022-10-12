@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         phantomConnect: phantomConnect,
         phantom: phantom,
       ),
-      Orderbook()
+      const Orderbook()
     ];
     super.initState();
     handleIncomingLinks(context);
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
       //           ),
       //         )
       // ]),
-      backgroundColor: Color.fromARGB(255, 42, 35, 44),
+      backgroundColor: const Color.fromARGB(255, 42, 35, 44),
       body: selected == 2
           ? Account(phantomConnect: phantomConnect, phantom: phantom)
           : screens[selected],
@@ -161,7 +161,7 @@ class _MyAppState extends State<MyApp> {
         // ),
       ],
       currentIndex: selected,
-      selectedItemColor: Color.fromARGB(255, 255, 255, 255),
+      selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
       unselectedItemColor: Colors.blueGrey,
       onTap: (value) {
         setState(() {
