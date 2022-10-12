@@ -388,9 +388,12 @@ class _HomeState extends State<Home> {
                   ),
             Container(margin: const EdgeInsets.all(10)),
             TextButton(
-                onPressed: () async {
+                onPressed: () {
                   if (!widget.phantom.connected) {
-                    widget.phantom.connect(widget.phantomConnect);
+                    setState(() {
+                      widget.phantom.connect(widget.phantomConnect);
+                    });
+                    print("Done");
                   }
                 },
                 child: Container(
