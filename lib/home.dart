@@ -122,11 +122,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        height: 500,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 25, 27, 31),
             borderRadius: BorderRadius.circular(15.0)),
         padding: EdgeInsets.all(20.0),
-        margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0),
+        margin: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -387,36 +389,55 @@ class _HomeState extends State<Home> {
                     ],
                   ),
             Container(margin: const EdgeInsets.all(10)),
-            TextButton(
-                onPressed: () async {
-                  if (!widget.phantom.connected) {
-                    widget.phantom.connect(widget.phantomConnect);
-                  }
-                },
-                child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 23, 42, 66),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Icon(Icons.loop),
-                        widget.phantom.connected
-                            ? Text(
-                                "Swap",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              )
-                            : Text(
-                                "Connect Wallet",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 76, 137, 224),
-                                    fontSize: 20),
-                              )
-                      ],
-                    )))
+            widget.phantom.connected
+                ? TextButton(
+                    onPressed: () async {
+                      if (!widget.phantom.connected) {
+                        widget.phantom.connect(widget.phantomConnect);
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 23, 42, 66),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Swap",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                : TextButton(
+                    onPressed: () async {
+                      if (!widget.phantom.connected) {
+                        widget.phantom.connect(widget.phantomConnect);
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 23, 42, 66),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Connect Wallet",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 76, 137, 224),
+                                fontSize: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
           ],
         ),
       ),
