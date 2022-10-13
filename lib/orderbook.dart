@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_is_empty
 
 import 'package:alert/alert.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -11,7 +11,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 Future fetchData(String typ, String address) async {
   try {
     final response = await http.get(Uri.parse(
-        "https://saikishore222.pythonanywhere.com/order?add=$address&type=$typ&limit=30"));
+        "https://saikishore222.pythonanywhere.com/order?add=$address&type=$typ&limit=25"));
 
     if (response.statusCode == 200) {
       return json.decode(response.body) as List<dynamic>;
@@ -159,7 +159,7 @@ class _OrderbookState extends State<Orderbook> {
               height: 10.0,
             ),
             asks.length == 0 || bids.length == 0
-                ? Container(
+                ? SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
                     child: Center(
                       child: LoadingAnimationWidget.discreteCircle(
@@ -189,11 +189,20 @@ class _OrderbookState extends State<Orderbook> {
         color: const Color.fromARGB(255, 25, 27, 31),
         borderRadius: BorderRadius.circular(15.0),
       ),
-      height: size == "Small" ? 300 : 600,
-      margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 1.0),
-      child: DataTable2(
-        columns: _createColumns(),
-        rows: _createRows(typ),
+      height: size == "Small"
+          ? (MediaQuery.of(context).size.height - 200) / 2
+          : MediaQuery.of(context).size.height - 200,
+      margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 2.0),
+      child: RawScrollbar(
+        thumbVisibility: true,
+        trackVisibility: true,
+        trackColor: Colors.black87,
+        thumbColor: Colors.grey,
+        trackRadius: Radius.circular(10),
+        child: DataTable2(
+          columns: _createColumns(),
+          rows: _createRows(typ),
+        ),
       ),
     );
   }
@@ -237,18 +246,24 @@ class _OrderbookState extends State<Orderbook> {
       return bids
           .map((book) => DataRow(
                 cells: [
-                  DataCell(Text(
-                    book['price'].toStringAsFixed(3),
-                    style: const TextStyle(color: Colors.green),
-                  )),
-                  DataCell(Text(
-                    book['size'].toStringAsFixed(3),
-                    style: const TextStyle(color: Colors.white),
-                  )),
-                  DataCell(Text(
-                    (book['price'] * book['size']).toStringAsFixed(3),
-                    style: const TextStyle(color: Colors.white),
-                  ))
+                  DataCell(
+                    Text(
+                      book['price'].toStringAsFixed(3),
+                      style: const TextStyle(color: Colors.green),
+                    ),
+                  ),
+                  DataCell(
+                    Text(
+                      book['size'].toStringAsFixed(3),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  DataCell(
+                    Text(
+                      (book['price'] * book['size']).toStringAsFixed(3),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  )
                 ],
               ))
           .toList();
