@@ -30,13 +30,20 @@ class _AccountState extends State<Account> {
     final provider = Provider.of<WalletStateProvider>(context, listen: true);
     return provider.isConnected
         ? Logged(context)
-        : const SafeArea(
+        : SafeArea(
             child: Center(
-              child: Text(
-                "Connect Phantom Wallet",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
+              child: TextButton(
+                onPressed: () async {
+                  if (!widget.phantom.connected) {
+                    widget.phantom.connect();
+                  }
+                },
+                child: const Text(
+                  "Connect Wallet",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
                 ),
               ),
             ),

@@ -298,14 +298,15 @@ class _HomeState extends State<Home> {
                                     style: const TextStyle(
                                         color: Colors.white, fontSize: 22),
                                     decoration: const InputDecoration(
-                                        fillColor: Colors.white,
-                                        hintText: "0.0",
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 178, 185, 210),
-                                            fontSize: 22),
-                                        border: InputBorder.none,
-                                        focusColor: Colors.white),
+                                      fillColor: Colors.white,
+                                      hintText: "0.0",
+                                      hintStyle: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 178, 185, 210),
+                                          fontSize: 22),
+                                      border: InputBorder.none,
+                                      focusColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 CoolDropdown(
@@ -477,8 +478,9 @@ class _HomeState extends State<Home> {
                               const Text(
                                 "Connect Wallet",
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 76, 137, 224),
-                                    fontSize: 20),
+                                  color: Color.fromARGB(255, 76, 137, 224),
+                                  fontSize: 20,
+                                ),
                               )
                             ],
                           ),
