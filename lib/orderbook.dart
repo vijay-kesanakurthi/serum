@@ -210,14 +210,15 @@ class _OrderbookState extends State<Orderbook> {
   List<DataColumn> _createColumns() {
     return [
       DataColumn2(
-          label: Text(
-            'Price',
-            style: TextStyle(
-                color: Colors.grey[300],
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
-          ),
-          size: ColumnSize.L),
+        label: Text(
+          'Price',
+          style: TextStyle(
+              color: Colors.grey[300],
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
+        ),
+        size: ColumnSize.L,
+      ),
       DataColumn2(
         label: Text(
           'Size',

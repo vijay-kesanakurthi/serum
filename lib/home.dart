@@ -201,14 +201,17 @@ class _HomeState extends State<Home> {
                                     },
                                     keyboardType: TextInputType.number,
                                     style: const TextStyle(
-                                        color: Colors.white, fontSize: 22),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                    ),
                                     decoration: const InputDecoration(
                                         fillColor: Colors.white,
                                         hintText: "0.0",
                                         hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 178, 185, 210),
-                                            fontSize: 22),
+                                          color: Color.fromARGB(
+                                              255, 178, 185, 210),
+                                          fontSize: 22,
+                                        ),
                                         border: InputBorder.none,
                                         focusColor: Colors.white),
                                   ),
@@ -439,8 +442,9 @@ class _HomeState extends State<Home> {
                           width: double.infinity,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 23, 42, 66),
-                              borderRadius: BorderRadius.circular(10)),
+                            color: const Color.fromARGB(255, 23, 42, 66),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             // ignore: prefer_const_literals_to_create_immutables
