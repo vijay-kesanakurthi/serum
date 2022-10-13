@@ -1,3 +1,4 @@
+import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:serumswap/phantom.dart';
@@ -88,6 +89,7 @@ class _AccountState extends State<Account> {
                             text: widget.phantom.phantomConnect.userPublicKey,
                           ),
                         );
+                        Alert(message: "copied");
                       },
                       child: Text(
                         widget.phantom.phantomConnect.userPublicKey,
@@ -126,12 +128,7 @@ class _AccountState extends State<Account> {
                       ),
                       Container(
                         width: 300,
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          top: 6,
-                          right: 20,
-                          bottom: 6,
-                        ),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 25, 27, 31),
                           borderRadius: BorderRadius.circular(10),
@@ -142,13 +139,28 @@ class _AccountState extends State<Account> {
                             color: Colors.white,
                             fontSize: 20,
                           ),
-                          decoration: const InputDecoration(
-                            fillColor: Color.fromARGB(255, 227, 225, 225),
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              onPressed: () async {
+                                Clipboard.getData(Clipboard.kTextPlain)
+                                    .then((value) {
+                                  if (value != null) {
+                                    addressController.text = value.text!;
+                                  }
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.paste_rounded,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.all(10),
+                            fillColor: const Color.fromARGB(255, 227, 225, 225),
                             hintText: "Reciever Public Address",
                             border: InputBorder.none,
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Color.fromARGB(255, 178, 185, 210),
-                              fontSize: 22,
+                              fontSize: 16,
                             ),
                             focusColor: Colors.white,
                           ),
@@ -159,12 +171,7 @@ class _AccountState extends State<Account> {
                       ),
                       Container(
                         width: 300,
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          top: 6,
-                          right: 20,
-                          bottom: 6,
-                        ),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 25, 27, 31),
                           borderRadius: BorderRadius.circular(10),
@@ -178,12 +185,13 @@ class _AccountState extends State<Account> {
                             fontSize: 20,
                           ),
                           decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
                             fillColor: Color.fromARGB(255, 227, 225, 225),
                             hintText: "Amount SOL",
                             border: InputBorder.none,
                             hintStyle: TextStyle(
                               color: Color.fromARGB(255, 178, 185, 210),
-                              fontSize: 22,
+                              fontSize: 16,
                             ),
                             focusColor: Colors.white,
                           ),
@@ -203,8 +211,7 @@ class _AccountState extends State<Account> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                            // color: const Color.fromARGB(255, 20, 27, 43),
-                            color: Colors.black45,
+                            color: Color.fromARGB(255, 20, 27, 43),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: const Text(
@@ -232,8 +239,7 @@ class _AccountState extends State<Account> {
                         child: Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            // color: const Color.fromARGB(255, 20, 27, 43),
-                            color: Colors.black45,
+                            color: const Color.fromARGB(255, 23, 42, 66),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: const Text(

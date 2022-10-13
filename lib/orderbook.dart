@@ -162,7 +162,7 @@ class _OrderbookState extends State<Orderbook> {
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height / 2,
                     child: Center(
-                      child: LoadingAnimationWidget.discreteCircle(
+                      child: LoadingAnimationWidget.hexagonDots(
                         color: Colors.white,
                         size: 40,
                       ),
@@ -193,16 +193,16 @@ class _OrderbookState extends State<Orderbook> {
           ? (MediaQuery.of(context).size.height - 200) / 2
           : MediaQuery.of(context).size.height - 200,
       margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 2.0),
-      child: RawScrollbar(
-        thumbVisibility: true,
-        trackVisibility: true,
-        trackColor: Colors.black87,
-        thumbColor: Colors.grey,
-        trackRadius: Radius.circular(10),
-        child: DataTable2(
-          columns: _createColumns(),
-          rows: _createRows(typ),
-        ),
+      child: //RawScrollbar(
+          //   thumbVisibility: true,
+          //   trackVisibility: true,
+          //   trackColor: Colors.black87,
+          //   thumbColor: Colors.grey,
+          //   trackRadius: const Radius.circular(10),
+          //   child:
+          DataTable2(
+        columns: _createColumns(),
+        rows: _createRows(typ),
       ),
     );
   }
@@ -217,9 +217,10 @@ class _OrderbookState extends State<Orderbook> {
               fontSize: 18.0,
               fontWeight: FontWeight.bold),
         ),
-        size: ColumnSize.L,
+        // size: ColumnSize.L,
       ),
       DataColumn2(
+        // fixedWidth: 120,
         label: Text(
           'Size',
           style: TextStyle(
@@ -230,6 +231,7 @@ class _OrderbookState extends State<Orderbook> {
         size: ColumnSize.L,
       ),
       DataColumn2(
+        // fixedWidth: 120,
         label: Text(
           'Total',
           style: TextStyle(
@@ -237,7 +239,7 @@ class _OrderbookState extends State<Orderbook> {
               fontSize: 18.0,
               fontWeight: FontWeight.bold),
         ),
-        size: ColumnSize.L,
+        // size: ColumnSize.L,
       )
     ];
   }
@@ -250,19 +252,28 @@ class _OrderbookState extends State<Orderbook> {
                   DataCell(
                     Text(
                       book['price'].toStringAsFixed(3),
-                      style: const TextStyle(color: Colors.green),
+                      style: const TextStyle(
+                        color: Colors.green,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                   ),
                   DataCell(
                     Text(
                       book['size'].toStringAsFixed(3),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   DataCell(
                     Text(
                       (book['price'] * book['size']).toStringAsFixed(3),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   )
                 ],
@@ -274,15 +285,24 @@ class _OrderbookState extends State<Orderbook> {
               cells: [
                 DataCell(Text(
                   book['price'].toStringAsFixed(3),
-                  style: const TextStyle(color: Colors.red),
+                  style: const TextStyle(
+                    color: Colors.red,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )),
                 DataCell(Text(
                   book['size'].toStringAsFixed(3),
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )),
                 DataCell(Text(
                   (book['price'] * book['size']).toStringAsFixed(3),
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ))
               ],
             ))
