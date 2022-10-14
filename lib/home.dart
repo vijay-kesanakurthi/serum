@@ -310,7 +310,6 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                                 CoolDropdown(
-                                  dropdownList: itemList,
                                   resultBD: BoxDecoration(
                                       color:
                                           const Color.fromARGB(255, 64, 68, 79),
@@ -335,6 +334,7 @@ class _HomeState extends State<Home> {
                                   unselectedItemTS: const TextStyle(
                                     color: Color.fromARGB(255, 228, 228, 228),
                                   ),
+                                  dropdownList: itemList,
                                   onChange: (selected) async {
                                     setState(() {
                                       second = selected['tokenSymbol'];
@@ -485,7 +485,7 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                      )
+                      ),
               ],
             ),
           ),
