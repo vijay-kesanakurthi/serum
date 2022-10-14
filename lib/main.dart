@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:serumswap/acount.dart';
 import 'package:serumswap/home.dart';
@@ -95,49 +96,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(backgroundColor: Color.fromARGB(149, 10, 8, 8), actions: [
-      //   phantom.connected
-      //       ? TextButton(
-      //           onPressed: () {
-      //             Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                     builder: (context) => Account(
-      //                           phantomConnect: phantomConnect,
-      //                           phantom: phantom,
-      //                         )));
-      //           },
-      //           child: Container(
-      //             padding: EdgeInsets.only(right: 20),
-      //             child: Column(
-      //               children: [
-      //                 Icon(Icons.account_circle_outlined, size: 30),
-      //               ],
-      //             ),
-      //           ),
-      //         )
-      //       : TextButton(
-      //           onPressed: () {
-      //             phantom.connect(phantomConnect);
-      //           },
-      //           child: Container(
-      //             padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-      //             child: Row(
-      //               children: const [
-      //                 Text(
-      //                   "Connect Phantom",
-      //                   style: TextStyle(color: Colors.white, fontSize: 20),
-      //                 ),
-      //                 Icon(
-      //                   Icons.account_balance_wallet,
-      //                   size: 25,
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         )
-      // ]),
-      backgroundColor: const Color.fromARGB(255, 42, 35, 44),
+      backgroundColor: Color.fromARGB(255, 2, 2, 2),
       body: screens[selected],
       bottomNavigationBar: nav(),
     );
@@ -151,15 +110,17 @@ class _MyAppState extends State<MyApp> {
       iconSize: 28,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.swap_horiz, size: 32),
+          icon: Icon(FeatherIcons.repeat),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.book_rounded),
+          icon: Icon(
+            FeatherIcons.bookOpen,
+          ),
           label: 'Business',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
+          icon: Icon(FeatherIcons.user),
           label: 'Account',
         ),
         // BottomNavigationBarItem(
