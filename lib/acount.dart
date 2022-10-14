@@ -1,6 +1,8 @@
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:serumswap/phantom.dart';
 import 'package:serumswap/providers/wallet_state_provider.dart';
 import 'package:flutter/services.dart';
@@ -234,8 +236,19 @@ class _AccountState extends State<Account> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       TextButton(
-                        onPressed: () {
-                          widget.phantom.airDrop();
+                        onPressed: () async {
+                          if (await widget.phantom.airDrop()) {
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.success,
+                              text: '1 SOL airdroped Successfully!',
+                              backgroundColor: Color.fromARGB(255, 24, 42, 64),
+                              confirmBtnColor: Color.fromARGB(255, 23, 42, 66),
+                            );
+                            print("aridroped");
+                          } else {
+                            Alert(message: "Failed to Airdrop");
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.all(20),

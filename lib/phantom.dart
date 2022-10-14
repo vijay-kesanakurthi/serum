@@ -83,13 +83,13 @@ class Phantom {
     return value / lamportsPerSol;
   }
 
-  void airDrop() async {
+  Future airDrop() async {
     try {
       await client.requestAirdrop(
           phantomConnect.userPublicKey, 1 * lamportsPerSol);
-      Alert(message: "1 SOL Airdroped");
+      return true;
     } catch (E) {
-      Alert(message: E.toString());
+      return false;
     }
   }
 }
