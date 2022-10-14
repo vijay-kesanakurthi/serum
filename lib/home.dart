@@ -74,7 +74,6 @@ class _HomeState extends State<Home> {
       )
     }
   ];
-  List itemList = [];
   late Map<String, dynamic> price;
 
   final CoinMarket coinMarket = CoinMarket();
@@ -89,17 +88,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-
-    setState(() {
-      for (int i = 0; i < dropdownItemList.length; i++) {
-        itemList.add({
-          'label': dropdownItemList[i]['label'],
-          'value': dropdownItemList[i]['value'],
-          'icon': dropdownItemList[i]['icon'],
-          'tokenSymbol': dropdownItemList[i]['tokenSymbol']
-        });
-      }
-    });
 
     coinMarket.toUSDC(first, second).then((value) => setState(() {
           data = value;
@@ -208,21 +196,6 @@ class _HomeState extends State<Home> {
                                 DropdownButtonHideUnderline(
                                   child: DropdownButton2(
                                     isExpanded: true,
-                                    hint: Row(
-                                      children: const [
-                                        Expanded(
-                                          child: Text(
-                                            'Select Token',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                     items: dropdownItemList
                                         .map((item) => DropdownMenuItem<String>(
                                               value: item['tokenSymbol'],
@@ -343,21 +316,7 @@ class _HomeState extends State<Home> {
                                 DropdownButtonHideUnderline(
                                   child: DropdownButton2(
                                     isExpanded: true,
-                                    hint: Row(
-                                      children: const [
-                                        Expanded(
-                                          child: Text(
-                                            'Select Token',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+
                                     items: dropdownItemList
                                         .map((item) => DropdownMenuItem<String>(
                                               value: item['tokenSymbol'],
