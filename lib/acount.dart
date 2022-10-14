@@ -20,11 +20,14 @@ class _AccountState extends State<Account> {
   TextEditingController addressController = TextEditingController();
   TextEditingController amountController = TextEditingController();
 
-  double balance = 0;
+  late double balance = 0;
   double netwokFee = 0;
 
   @override
   void initState() {
+    widget.phantom
+        .getBalance()
+        .then((value) => setState(() => {balance = value}));
     super.initState();
   }
 

@@ -77,7 +77,7 @@ class Phantom {
     launch();
   }
 
-  getBalance() async {
+  Future getBalance() async {
     final value = await client.getBalance(phantomConnect.userPublicKey);
 
     return value / lamportsPerSol;
@@ -87,6 +87,7 @@ class Phantom {
     try {
       await client.requestAirdrop(
           phantomConnect.userPublicKey, 1 * lamportsPerSol);
+
       return true;
     } catch (E) {
       return false;
