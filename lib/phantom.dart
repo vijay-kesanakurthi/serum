@@ -29,10 +29,8 @@ class Phantom {
           cluster: 'devnet', redirect: '/connect');
 
       await launchUrl(connectUrl, mode: LaunchMode.externalApplication);
-      print("tho[");
     } catch (e) {
       Alert(message: e.toString());
-      print(e);
     }
   }
 

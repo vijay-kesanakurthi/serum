@@ -51,6 +51,7 @@ class _AccountState extends State<Account> {
           );
   }
 
+  // ignore: non_constant_identifier_names
   SafeArea Logged(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -211,7 +212,7 @@ class _AccountState extends State<Account> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 20, 27, 43),
+                            color: const Color.fromARGB(255, 20, 27, 43),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: const Text(

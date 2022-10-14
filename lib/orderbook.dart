@@ -193,14 +193,7 @@ class _OrderbookState extends State<Orderbook> {
           ? (MediaQuery.of(context).size.height - 200) / 2
           : MediaQuery.of(context).size.height - 200,
       margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 2.0),
-      child: //RawScrollbar(
-          //   thumbVisibility: true,
-          //   trackVisibility: true,
-          //   trackColor: Colors.black87,
-          //   thumbColor: Colors.grey,
-          //   trackRadius: const Radius.circular(10),
-          //   child:
-          DataTable2(
+      child: DataTable2(
         columns: _createColumns(),
         rows: _createRows(typ),
       ),

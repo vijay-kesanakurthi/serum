@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         Home(
           phantom: phantom,
         ),
-        Orderbook(),
+        const Orderbook(),
         Account(
           phantom: phantom,
         )
@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
       //           ),
       //         )
       // ]),
-      backgroundColor: Color.fromARGB(255, 42, 35, 44),
+      backgroundColor: const Color.fromARGB(255, 42, 35, 44),
       body: screens[selected],
       bottomNavigationBar: nav(),
     );
@@ -145,7 +145,7 @@ class _MyAppState extends State<MyApp> {
 
   BottomNavigationBar nav() {
     return BottomNavigationBar(
-      backgroundColor: Color.fromARGB(255, 8, 6, 6),
+      backgroundColor: const Color.fromARGB(255, 8, 6, 6),
       showSelectedLabels: false,
       showUnselectedLabels: false,
       iconSize: 28,
