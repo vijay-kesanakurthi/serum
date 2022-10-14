@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cool_dropdown/cool_dropdown.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:provider/provider.dart';
 import 'package:serumswap/coin_market.dart';
 import 'package:serumswap/phantom.dart';
@@ -66,11 +66,12 @@ class _HomeState extends State<Home> {
       "tokenName": "Serum",
       "tokenSymbol": "SRM",
       "icon": SizedBox(
-          key: UniqueKey(),
-          width: 20,
-          height: 20,
-          child: Image.network(
-              "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x476c5E26a75bd202a9683ffD34359C0CC15be0fF/logo.png"))
+        key: UniqueKey(),
+        width: 20,
+        height: 20,
+        child: Image.network(
+            "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x476c5E26a75bd202a9683ffD34359C0CC15be0fF/logo.png"),
+      )
     }
   ];
   List itemList = [];
@@ -78,7 +79,6 @@ class _HomeState extends State<Home> {
 
   final CoinMarket coinMarket = CoinMarket();
 
-  //fetching coin data
   String first = "SOL";
   String second = "SRM";
   Map data = {};
@@ -117,18 +117,6 @@ class _HomeState extends State<Home> {
     super.dispose();
     _firsController.dispose();
   }
-
-  // void update() async {
-  //   setState(() {
-  //     String temp = first;
-  //     first = second;
-  //     second = temp;
-  //   });
-  //   data = await coinMarket.toUSDC(first, second);
-  //   setState(() {
-  //     data = data;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -182,10 +170,11 @@ class _HomeState extends State<Home> {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      // border: Border.all(width: 2),
-                                      color:
-                                          const Color.fromARGB(255, 33, 36, 41),
-                                      borderRadius: BorderRadius.circular(10)),
+                                    // border: Border.all(width: 2),
+                                    color:
+                                        const Color.fromARGB(255, 33, 36, 41),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                   width: 150,
                                   child: TextField(
                                     onChanged: (value) {
@@ -216,53 +205,94 @@ class _HomeState extends State<Home> {
                                         focusColor: Colors.white),
                                   ),
                                 ),
-                                CoolDropdown(
-                                  resultBD: BoxDecoration(
+                                DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    isExpanded: true,
+                                    hint: Row(
+                                      children: const [
+                                        Expanded(
+                                          child: Text(
+                                            'Select Token',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    items: dropdownItemList
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item['tokenSymbol'],
+                                              child: Row(
+                                                children: [
+                                                  item['icon'],
+                                                  const SizedBox(width: 7),
+                                                  Text(
+                                                    item['tokenSymbol'],
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ))
+                                        .toList(),
+                                    value: first,
+                                    onChanged: (value) async {
+                                      setState(() {
+                                        first = value as String;
+                                      });
+                                      data = await coinMarket.toUSDC(
+                                        first,
+                                        second,
+                                      );
+                                      setState(() {
+                                        data = data;
+                                      });
+                                      _firsController.text =
+                                          "${input * data[first][second]}";
+                                    },
+                                    icon: const Icon(
+                                      Icons.expand_more,
+                                    ),
+                                    iconSize: 20,
+                                    iconEnabledColor: Colors.white,
+                                    iconDisabledColor: Colors.grey,
+                                    buttonHeight: 50,
+                                    buttonWidth: 130,
+                                    buttonPadding: const EdgeInsets.only(
+                                        left: 14, right: 14),
+                                    buttonDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                      ),
                                       color:
                                           const Color.fromARGB(255, 64, 68, 79),
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  resultTS: const TextStyle(
-                                    color: Colors.white,
+                                    ),
+                                    buttonElevation: 2,
+                                    itemHeight: 40,
+                                    itemPadding: const EdgeInsets.only(
+                                        left: 14, right: 14),
+                                    dropdownMaxHeight: 200,
+                                    dropdownWidth: 130,
+                                    dropdownPadding: null,
+                                    dropdownDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color:
+                                          const Color.fromARGB(255, 64, 68, 79),
+                                    ),
+                                    scrollbarRadius: const Radius.circular(40),
+                                    scrollbarThickness: 6,
+                                    // scrollbarAlwaysShow: true,
+                                    // offset: const Offset(-20, 0),
                                   ),
-                                  dropdownBD: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 64, 68, 79),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  selectedItemBD: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 44, 47, 54),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  selectedItemTS: const TextStyle(
-                                    color: Color.fromARGB(255, 228, 228, 228),
-                                  ),
-                                  unselectedItemTS: const TextStyle(
-                                    color: Color.fromARGB(255, 228, 228, 228),
-                                  ),
-                                  dropdownList: itemList,
-                                  onChange: (selected) async {
-                                    setState(() {
-                                      first = selected['tokenSymbol'];
-                                    });
-                                    data =
-                                        await coinMarket.toUSDC(first, second);
-                                    setState(() {
-                                      data = data;
-                                    });
-                                    _firsController.text =
-                                        "${input * data[first][second]}";
-                                  },
-                                  isAnimation: true,
-                                  defaultValue: itemList[0],
-                                  dropdownItemReverse: true,
-                                  gap: 5,
-                                  dropdownItemGap: 0,
-                                  dropdownHeight: 220,
-                                  dropdownItemMainAxis: MainAxisAlignment.start,
-                                  resultMainAxis: MainAxisAlignment.start,
-                                  resultWidth: 120,
                                 ),
                               ],
                             ),
@@ -301,60 +331,104 @@ class _HomeState extends State<Home> {
                                       fillColor: Colors.white,
                                       hintText: "0.0",
                                       hintStyle: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 178, 185, 210),
-                                          fontSize: 22),
+                                        color:
+                                            Color.fromARGB(255, 178, 185, 210),
+                                        fontSize: 22,
+                                      ),
                                       border: InputBorder.none,
                                       focusColor: Colors.white,
                                     ),
                                   ),
                                 ),
-                                CoolDropdown(
-                                  dropdownList: itemList,
-                                  resultBD: BoxDecoration(
+                                DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    isExpanded: true,
+                                    hint: Row(
+                                      children: const [
+                                        Expanded(
+                                          child: Text(
+                                            'Select Token',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    items: dropdownItemList
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item['tokenSymbol'],
+                                              child: Row(
+                                                // mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  item['icon'],
+                                                  const SizedBox(width: 7),
+                                                  Text(
+                                                    item['tokenSymbol'],
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ))
+                                        .toList(),
+                                    value: second,
+                                    onChanged: (value) async {
+                                      setState(() {
+                                        second = value as String;
+                                      });
+                                      data = await coinMarket.toUSDC(
+                                        first,
+                                        second,
+                                      );
+                                      setState(() {
+                                        data = data;
+                                      });
+                                      _firsController.text =
+                                          "${input * data[first][second]}";
+                                    },
+                                    icon: const Icon(
+                                      Icons.expand_more,
+                                    ),
+                                    iconSize: 20,
+                                    iconEnabledColor: Colors.white,
+                                    iconDisabledColor: Colors.grey,
+                                    buttonHeight: 50,
+                                    buttonWidth: 130,
+                                    buttonPadding: const EdgeInsets.only(
+                                        left: 14, right: 14),
+                                    buttonDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                      ),
                                       color:
                                           const Color.fromARGB(255, 64, 68, 79),
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  resultTS: const TextStyle(
-                                    color: Colors.white,
+                                    ),
+                                    buttonElevation: 2,
+                                    itemHeight: 40,
+                                    itemPadding: const EdgeInsets.only(
+                                        left: 14, right: 14),
+                                    dropdownMaxHeight: 200,
+                                    dropdownWidth: 130,
+                                    dropdownPadding: null,
+                                    dropdownDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color:
+                                          const Color.fromARGB(255, 64, 68, 79),
+                                    ),
+                                    scrollbarRadius: const Radius.circular(40),
+                                    scrollbarThickness: 6,
+                                    // scrollbarAlwaysShow: true,
+                                    // offset: const Offset(-20, 0),
                                   ),
-                                  dropdownBD: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 64, 68, 79),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  selectedItemBD: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 44, 47, 54),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  selectedItemTS: const TextStyle(
-                                    color: Color.fromARGB(255, 228, 228, 228),
-                                  ),
-                                  unselectedItemTS: const TextStyle(
-                                    color: Color.fromARGB(255, 228, 228, 228),
-                                  ),
-                                  onChange: (selected) async {
-                                    setState(() {
-                                      second = selected['tokenSymbol'];
-                                    });
-                                    data =
-                                        await coinMarket.toUSDC(first, second);
-                                    setState(() {
-                                      data = data;
-                                    });
-                                    _firsController.text =
-                                        "${input * data[first][second]}";
-                                  },
-                                  defaultValue: itemList[3],
-                                  dropdownItemReverse: true,
-                                  gap: 5,
-                                  dropdownItemGap: 0,
-                                  dropdownHeight: 220,
-                                  dropdownItemMainAxis: MainAxisAlignment.start,
-                                  resultMainAxis: MainAxisAlignment.start,
-                                  resultWidth: 120,
                                 ),
                               ],
                             ),
@@ -368,7 +442,17 @@ class _HomeState extends State<Home> {
                       right: 0,
                       child: Center(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () async {
+                            String? temp = first;
+                            setState(() {
+                              first = second;
+                              second = temp;
+                            });
+                            data = await coinMarket.toUSDC(first, second);
+                            setState(() {
+                              data = data;
+                            });
+                          },
                           child: Container(
                             margin: const EdgeInsets.all(10),
                             height: 35,
@@ -485,7 +569,7 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                      )
+                      ),
               ],
             ),
           ),

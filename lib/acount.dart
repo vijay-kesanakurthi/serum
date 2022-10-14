@@ -244,9 +244,12 @@ class _AccountState extends State<Account> {
                             QuickAlert.show(
                               context: context,
                               type: QuickAlertType.success,
-                              text: '1 SOL airdroped Successfully!',
-                              backgroundColor: Color.fromARGB(255, 24, 42, 64),
-                              confirmBtnColor: Color.fromARGB(255, 23, 42, 66),
+                              titleColor: Colors.white,
+                              text: 'Successfully airdroped 1 SOL!',
+                              textColor: Colors.white,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 68, 90, 117),
+                              confirmBtnColor: Colors.blue,
                             );
                             print("aridroped");
                           } else {
