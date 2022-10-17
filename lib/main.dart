@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 2, 2, 2),
+      backgroundColor: Color.fromARGB(255, 25, 27, 31),
       body: screens[selected],
       bottomNavigationBar: nav(),
     );

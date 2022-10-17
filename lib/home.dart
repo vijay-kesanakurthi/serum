@@ -84,6 +84,7 @@ class _HomeState extends State<Home> {
   double input = 0;
 
   final _firsController = TextEditingController();
+  final _controller = TextEditingController();
 
   @override
   void initState() {
@@ -113,19 +114,19 @@ class _HomeState extends State<Home> {
       child: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
-              gradient:
-                  const LinearGradient(begin: Alignment.topCenter, colors: [
-                Color.fromARGB(255, 46, 34, 46),
-                Color.fromARGB(255, 39, 35, 43),
-                Color.fromARGB(255, 36, 35, 42),
-                Color.fromARGB(255, 34, 36, 41),
-              ]),
+              // gradient:
+              //     const LinearGradient(begin: Alignment.topCenter, colors: [
+              //   Color.fromARGB(255, 46, 34, 46),
+              //   Color.fromARGB(255, 39, 35, 43),
+              //   Color.fromARGB(255, 36, 35, 42),
+              //   Color.fromARGB(255, 34, 36, 41),
+              // ]),
               // color: Color.fromARGB(255, 25, 27, 31),
               borderRadius: BorderRadius.circular(15.0)),
           margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 80.0),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 25, 27, 31),
+              color: Color.fromARGB(255, 33, 36, 41),
               borderRadius: BorderRadius.circular(20.0),
             ),
             padding: const EdgeInsets.all(20.0),
@@ -147,7 +148,7 @@ class _HomeState extends State<Home> {
                         Container(
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 33, 36, 41),
+                            color: const Color.fromARGB(255, 64, 68, 79),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
@@ -160,7 +161,7 @@ class _HomeState extends State<Home> {
                                   decoration: BoxDecoration(
                                     // border: Border.all(width: 2),
                                     color:
-                                        const Color.fromARGB(255, 33, 36, 41),
+                                        const Color.fromARGB(255, 64, 68, 79),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   width: 150,
@@ -176,6 +177,7 @@ class _HomeState extends State<Home> {
                                             "${input * data[first][second]}";
                                       });
                                     },
+                                    controller: _controller,
                                     keyboardType: TextInputType.number,
                                     style: const TextStyle(
                                       color: Colors.white,
@@ -246,8 +248,8 @@ class _HomeState extends State<Home> {
                                       border: Border.all(
                                         color: Colors.black26,
                                       ),
-                                      color:
-                                          const Color.fromARGB(255, 64, 68, 79),
+                                      color: const Color.fromARGB(
+                                          255, 80, 80, 100),
                                     ),
                                     buttonElevation: 2,
                                     itemHeight: 40,
@@ -277,7 +279,7 @@ class _HomeState extends State<Home> {
                         Container(
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 33, 36, 41),
+                            color: const Color.fromARGB(255, 64, 68, 79),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
@@ -291,7 +293,7 @@ class _HomeState extends State<Home> {
                                   decoration: BoxDecoration(
                                       // border: Border.all(width: 2),
                                       color:
-                                          const Color.fromARGB(255, 33, 36, 41),
+                                          const Color.fromARGB(255, 64, 68, 79),
                                       borderRadius: BorderRadius.circular(10)),
                                   width: 150,
                                   child: TextField(
@@ -316,7 +318,6 @@ class _HomeState extends State<Home> {
                                 DropdownButtonHideUnderline(
                                   child: DropdownButton2(
                                     isExpanded: true,
-
                                     items: dropdownItemList
                                         .map((item) => DropdownMenuItem<String>(
                                               value: item['tokenSymbol'],
@@ -368,8 +369,7 @@ class _HomeState extends State<Home> {
                                       border: Border.all(
                                         color: Colors.black26,
                                       ),
-                                      color:
-                                          const Color.fromARGB(255, 64, 68, 79),
+                                      color: Color.fromARGB(255, 80, 80, 100),
                                     ),
                                     buttonElevation: 2,
                                     itemHeight: 40,
@@ -403,9 +403,12 @@ class _HomeState extends State<Home> {
                         child: GestureDetector(
                           onTap: () async {
                             String? temp = first;
+                            String temp2 = _firsController.text;
                             setState(() {
                               first = second;
                               second = temp;
+                              _firsController.text = _controller.text;
+                              _controller.text = temp2;
                             });
                             data = await coinMarket.toUSDC(first, second);
                             setState(() {
@@ -417,12 +420,12 @@ class _HomeState extends State<Home> {
                             height: 35,
                             width: 35,
                             decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 33, 36, 41),
+                                color: Color.fromARGB(255, 64, 68, 79),
                                 borderRadius: BorderRadius.circular(20),
                                 // ignore: prefer_const_literals_to_create_immutables
                                 boxShadow: [
                                   const BoxShadow(
-                                    color: Color.fromARGB(255, 25, 27, 31),
+                                    color: Color.fromARGB(255, 33, 36, 41),
                                     spreadRadius: 5,
                                   )
                                 ]),
