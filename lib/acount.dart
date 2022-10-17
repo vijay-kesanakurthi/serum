@@ -87,7 +87,7 @@ class _AccountState extends State<Account> {
                     height: 20,
                   ),
                   SizedBox(
-                    width: 400,
+                    width: 300,
                     child: TextButton(
                       onPressed: () async {
                         await Clipboard.setData(
@@ -98,13 +98,14 @@ class _AccountState extends State<Account> {
                         Alert(message: "copied");
                       },
                       child: Text(
-                        widget.phantom.phantomConnect.userPublicKey,
+                        "${widget.phantom.phantomConnect.userPublicKey.substring(0, 10)}...${widget.phantom.phantomConnect.userPublicKey.substring(34)}",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            wordSpacing: 10,
-                            fontWeight: FontWeight.w500),
+                          color: Colors.white,
+                          fontSize: 22,
+                          wordSpacing: 10,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
