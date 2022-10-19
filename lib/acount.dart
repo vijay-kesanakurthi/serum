@@ -2,7 +2,7 @@ import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
+// import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:serumswap/phantom.dart';
 import 'package:serumswap/providers/wallet_state_provider.dart';
 import 'package:flutter/services.dart';
@@ -252,7 +252,7 @@ class _AccountState extends State<Account> {
                                   const Color.fromARGB(255, 68, 90, 117),
                               confirmBtnColor: Colors.blue,
                             );
-                            print("aridroped");
+                            // print("aridroped");
                           } else {
                             Alert(message: "Failed to Airdrop");
                           }

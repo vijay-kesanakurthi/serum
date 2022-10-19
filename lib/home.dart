@@ -126,7 +126,7 @@ class _HomeState extends State<Home> {
           margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 80.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 33, 36, 41),
+              color: const Color.fromARGB(255, 33, 36, 41),
               borderRadius: BorderRadius.circular(20.0),
             ),
             padding: const EdgeInsets.all(20.0),
@@ -369,7 +369,8 @@ class _HomeState extends State<Home> {
                                       border: Border.all(
                                         color: Colors.black26,
                                       ),
-                                      color: Color.fromARGB(255, 80, 80, 100),
+                                      color: const Color.fromARGB(
+                                          255, 80, 80, 100),
                                     ),
                                     buttonElevation: 2,
                                     itemHeight: 40,
@@ -420,7 +421,7 @@ class _HomeState extends State<Home> {
                             height: 35,
                             width: 35,
                             decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 64, 68, 79),
+                                color: const Color.fromARGB(255, 64, 68, 79),
                                 borderRadius: BorderRadius.circular(20),
                                 // ignore: prefer_const_literals_to_create_immutables
                                 boxShadow: [
